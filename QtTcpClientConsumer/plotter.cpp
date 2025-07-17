@@ -12,7 +12,6 @@ void Plotter::setDados(const QVector<qint64> &tempo, const QVector<float> &valor
 {
     tempos = tempo;
     valores = valor;
-    qDebug() << "Recebeu" << tempos.size() << "dados para o plotter";
     repaint();
 }
 
@@ -26,13 +25,13 @@ void Plotter::paintEvent(QPaintEvent *event)
     pincel.setColor(QColorConstants::Yellow);
     pincel.setStyle(Qt::SolidPattern);
     caneta.setColor(QColorConstants::DarkBlue);
-    caneta.setWidth(5);
+    caneta.setWidth(2);
     pintor.setBrush(pincel);
     pintor.setPen(caneta);
     pintor.drawRect(0,0,width(),height());
 
-    if (tempos.size() < 2 || valores.size() < 2) {
-        qDebug() << "Sem dados suficientes para o grafico";
+    if (tempos.size() < 2 || valores.size() < 2 || valores.size() != tempos.size()) {
+        qDebug() << "Sem dados suficientes para plotagem";
         return;
     }
 
